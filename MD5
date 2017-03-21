@@ -1,0 +1,16 @@
+61dd2f5897aab65f0f330368537fdcf1 *DESCRIPTION
+ab1b6331e378374d5ac1599af07774ac *NAMESPACE
+ccd4a999111adea1227e362abf846238 *R/stplink.R
+1507ed1916de9e4f9249f10d653d4969 *build/partial.rdb
+1d85798fe8855f89bcd1d2ade8a220e7 *inst/extdata/snps.raw.zip
+07fa11e14168d259b913834b92a7aa8a *inst/extdata/test.bed
+8b54ae7cf48a544007b0b2888233ee73 *inst/extdata/test.bim
+372495607a15fe3338c49ae4bf8eddeb *inst/extdata/test.cov
+fb3b9bcfa9e3a160d54348405091c486 *inst/extdata/test.fam
+af40b35fe3045ad765a7b3f4c8b97a24 *inst/extdata/train.bed
+d2b7dd3284c9dd7a3805888f753e6f61 *inst/extdata/train.bim
+e55cf3132f855abbf8231e1668902d0b *inst/extdata/train.cov
+2fc65e040e54a270f62a82a0e4bb924b *inst/extdata/train.fam
+520c1532c4a66ef1aac4b8d70edbc3fa *man/stmgp-package.Rd
+b0c5e4148191c51d11bed1cf357bfe31 *man/stmgp.Rd
+f79bed8c9c15be4843c74a785a50f653 *man/stmgplink.Rd

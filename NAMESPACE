@@ -1,0 +1,4 @@
+exportPattern("^[[:alpha:]]+")
+ importFrom("stats", "cor", "dnorm", "glm", "lm", "pnorm", "qchisq", "qf")
+ importFrom("utils", "read.table", "tail", "write.table")
+import(MASS)
