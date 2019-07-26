@@ -1,0 +1,23 @@
+PLINK v1.90b4.4 64-bit (21 May 2017)
+Options in effect:
+  --bfile train
+  --out train
+  --recode A
+
+Hostname: uekim-CF-SX2BEDBP
+Working directory: /home/uekim/s/stmgp-r/inst/extdata
+Start time: Sat Apr 20 23:11:02 2019
+
+Random number seed: 1555769462
+15903 MB RAM detected; reserving 7951 MB for main workspace.
+1000 variants loaded from .bim file.
+400 people (400 males, 0 females) loaded from .fam.
+400 phenotype values loaded from .fam.
+Using 1 thread (no multithreaded calculations invoked).
+Before main variant filters, 400 founders and 0 nonfounders present.
+Calculating allele frequencies... done.
+1000 variants and 400 people pass filters and QC.
+Among remaining phenotypes, 264 are cases and 136 are controls.
+--recode A to train.raw ... done.
+
+End time: Sat Apr 20 23:11:02 2019
