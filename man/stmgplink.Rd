@@ -134,8 +134,8 @@ testbed = paste(wd,"test",sep="/")
 n.snp = 80000
 
 
-# training sample .fam file (quantitative phenotype in the 6th column)
 #> head(read.table(paste0(trainbed,".fam")))
+# training sample .fam file (quantitative phenotype in the 6th column)
 #       V1      V2 V3 V4 V5    V6
 #1 id1_100 id2_100  0  0  1 -1.23
 #2 id1_101 id2_101  0  0  1  1.48
@@ -145,8 +145,8 @@ n.snp = 80000
 #6 id1_105 id2_105  0  0  1 -0.50
 
 
-# test sample .fam file (quantitative phenotype in the 6th column but missing (i.e. "-9") allowed)
 #> head(read.table(paste0(testbed,".fam")))
+# test sample .fam file (quantitative phenotype in the 6th column but missing (i.e. "-9") allowed)
 #     V1    V2 V3 V4 V5    V6
 #1 id1_0 id2_0  0  0  1 -0.59
 #2 id1_1 id2_1  0  0  1  1.11
@@ -286,8 +286,8 @@ testbed = paste(wd,"test",sep="/")
 n.snp = 80000
 
 
+#> head(read.table(paste0(trainbed,"b.fam"))) 
 # training sample .fam file (binary phenotype (1 or 2) in the 6th column)
-#> head(read.table(paste0(trainbed,"b.fam")))
 #       V1      V2 V3 V4 V5 V6
 #1 id1_100 id2_100  0  0  1  2
 #2 id1_101 id2_101  0  0  1  1
@@ -297,9 +297,9 @@ n.snp = 80000
 #6 id1_105 id2_105  0  0  1  2
 
 
-# test sample .fam file (binary phenotype (1 or 2)
-# in the 6th column but missing (i.e. "-9") allowed)
-#> head(read.table(paste0(testbed,"b.fam")))
+#> head(read.table(paste0(testbed,"b.fam")))  
+# test sample .fam file (binary phenotype (1 or 2) in the 6th column
+# but missing (i.e. "-9") allowed)
 #     V1    V2 V3 V4 V5 V6
 #1 id1_0 id2_0  0  0  1  2
 #2 id1_1 id2_1  0  0  1  1
@@ -394,4 +394,5 @@ cor(sp4bpp$PEte[,6:7],use="pair")[1,2]  # test (covariates)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{Regression}% use one of  RShowDoc("KEYWORDS")
+\keyword{multivariate}% use one of  RShowDoc("KEYWORDS")
+\keyword{regression}% __ONLY ONE__ keyword per line

@@ -21,7 +21,6 @@ stmgplink = function(trainbed,testbed=NULL,gamma=1,taun=NULL,lambda=1,Z=NULL,Zte
       rownames(temp1) = temp1[,iSNP]; temp1 = cbind(temp1,temp1[,iP])
       ii = intersect( temp1[,iSNP], rownames(pSum) )
       if(length(ii)>0){
-        temp1[ii,ncol(temp1)] = pchisq(-2*log(as.numeric(temp1[ii,iP])) - 2*rowSums(log(pSum[ii,,drop=FALSE]),na.rm=TRUE), df=2*(1+rowSums(!is.na(pSum[ii,,drop=FALSE]))), lower.tail=FALSE )
       }
       #temp = rbind(temp,temp1)
       il = which( as.numeric(temp1[,ncol(temp1)]) < maxal )
@@ -344,12 +343,14 @@ stmgp = function(y,X,Z=NULL,tau,qb,maxal,gamma=1,ll=50,lambda=1,alc=NULL,pSum=NU
     uuvv = t(matrix( rep( as.vector(uu/vv),n ), length(uu),n ))
     dT2 = 2*du*uuvv - dv*(uuvv*uuvv)
     if(is.null(pSum)){
-      Th = outer(rep(1,length(T2)),qchisq(al,df=1,lower.tail=FALSE))
-    }else{  # Fisher method
-      eal = exp( outer( -rowSums(log(pSum),na.rm=TRUE), -0.5*qchisq(al,df=2*rowSums(!is.na(pSum))+2,lower.tail=FALSE) ,"+" ) )
-      eal[eal>1] = 1
-      Th = qchisq(eal,df=1,lower.tail=FALSE)
+      #Th = outer(rep(1,length(T2)),qchisq(al,df=1,lower.tail=FALSE))
+      Th = qchisq(al,df=1,lower.tail=FALSE)
     }
+    #else{  # Fisher method (abolition)
+      #eal = exp( outer( -rowSums(log(pSum),na.rm=TRUE), -0.5*qchisq(al,df=2*rowSums(!is.na(pSum))+2,lower.tail=FALSE) ,"+" ) )
+      #eal[eal>1] = 1
+      #Th = qchisq(eal,df=1,lower.tail=FALSE)
+    #}
   }else{
     cat("quantitative phenotype\n")
 #    QZ = diag(1,n,n) - Z%*%ginv(t(Z)%*%Z)%*%t(Z)
@@ -365,18 +366,33 @@ stmgp = function(y,X,Z=NULL,tau,qb,maxal,gamma=1,ll=50,lambda=1,alc=NULL,pSum=NU
     deT2 = sum(rQy^2) - cr^2
     T2 = (n-nZ-1)*( (cr^2)/deT2 )
     if(is.null(pSum)){
-      Th = outer(rep(1,length(T2)),qf(al,1,n-1-nZ,lower.tail=FALSE))
-    }else{  # Fisher method
-      eal = exp( outer( -rowSums(log(pSum),na.rm=TRUE), -0.5*qchisq(al,df=2*rowSums(!is.na(pSum))+2,lower.tail=FALSE) ,"+" ) )
-      eal[eal>1] = 1
-      Th = qf(eal,1,n-1-nZ,lower.tail=FALSE)
+      #Th = outer(rep(1,length(T2)),qf(al,1,n-1-nZ,lower.tail=FALSE))
+      Th = qf(al,1,n-1-nZ,lower.tail=FALSE)
     }
+    #else{  # Fisher method (abolition)
+      #eal = exp( outer( -rowSums(log(pSum),na.rm=TRUE), -0.5*qchisq(al,df=2*rowSums(!is.na(pSum))+2,lower.tail=FALSE) ,"+" ) ) #<- mistake
+      #eal[eal>1] = 1
+      #Th = qf(eal,1,n-1-nZ,lower.tail=FALSE)
+    #}
   }
   RSSnaive = rep(Inf,ll+1)
 
+  if(!is.null(pSum)){  # For Fisher method
+    slpSum = rowSums(log(pSum),na.rm=TRUE); srpSum = rowSums(!is.na(pSum))  #
+  }  #
 
   for(l in 1:(ll+1)){
-    Dy = (Th[,l]/T2)^((1+gamma)/2)
+    if(is.null(pSum)){
+      #Dy = (Th[,l]/T2)^((1+gamma)/2)
+      Dy = (Th[l]/T2)^((1+gamma)/2)  #
+    }else{  # Fisher method
+      eal = exp(-slpSum-0.5*qchisq(al[l],df=2*srpSum+2,lower.tail=FALSE)); eal[eal>1] = 1  #
+      if(qua==""){  #
+         Dy = (qchisq(eal,df=1,lower.tail=FALSE)/T2)^((1+gamma)/2)  #
+      }else{  #
+         Dy = (qf(eal,1,n-1-nZ,lower.tail=FALSE)/T2)^((1+gamma)/2)  #
+      }  #
+    }
     A = which(Dy < 1 - 1e-10)
     if(Sgn) A = A[which(sT2[A]>0)]
     nA = length(A)

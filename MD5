@@ -1,9 +1,9 @@
-ee886fc16a6a7168b1a6438602d291b1 *DESCRIPTION
+3f073d8574306fdecab2c9b304754f36 *DESCRIPTION
 c97d36d8cfcba6cf0ff62e1026fdf754 *NAMESPACE
-953a557cb9d1c6c7e04b157157976b76 *NEWS.md
-f0300fbd90612b0ab9137261e572a13b *R/stplink1.0.1.R
+c9a1036acd93e54f314fca69c35f52e7 *NEWS.md
+df54d367111e100657664c3f999f5476 *R/stplink1.0.2.R
 274953e39bbc9568aedbdbb15e54dd29 *README.md
-16b7d554e0d97fa2874a27af6e9aae8d *build/partial.rdb
+94147692ce1048972a57e2be505650d4 *build/partial.rdb
 85839612966e01e2e28193b4bc1ef9c3 *inst/extdata/causal.txt
 72c317f030399ac14d682101193435d5 *inst/extdata/pSum.txt
 1d85798fe8855f89bcd1d2ade8a220e7 *inst/extdata/snps.raw.zip
@@ -22,5 +22,5 @@ d2b7dd3284c9dd7a3805888f753e6f61 *inst/extdata/train.bim
 fd71ed57df1b60cecba018f32f7445cf *inst/extdata/train.raw
 7eeb851aef14772b7f0fa5cc627fc201 *inst/extdata/trainb.fam
 b1e71b6f5331c74a205304e449127054 *man/stmgp-package.Rd
-006d60aefba550e7a166ccc1c8d3480f *man/stmgp.Rd
-9a0a879c9dac223a3130cd6d620e4f97 *man/stmgplink.Rd
+d8d2b7c93a56794b873d50d49b8251bb *man/stmgp.Rd
+6932c94b58f62dfb66152e63840999f8 *man/stmgplink.Rd

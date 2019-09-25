@@ -165,4 +165,5 @@ length(intersect(which(boptbs[-(1:(ncol(Z)+1))]!=0),iA0))/length(iA0)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{Regression}% use one of  RShowDoc("KEYWORDS")
+\keyword{multivariate}% use one of  RShowDoc("KEYWORDS")
+\keyword{regression}% __ONLY ONE__ keyword per line
