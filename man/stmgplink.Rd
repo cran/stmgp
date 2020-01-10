@@ -82,7 +82,7 @@ Location of temporary files (default=\code{tempdir()}).
 Name(s) of covariate used; NULL (default) means unspecified.
 }
   \item{trainphenofile}{
-A phenotype file name for training data (PLINK format, i.e. FID and IID are needed), missing values are "-9"; NULL (default) means unspecified.
+A phenotype file name for training data (PLINK format, i.e. FID and IID are needed) with header columns (i.e. FID, IID, phenoname1, phenoname2, ...) missing values are "-9"; NULL (default) means unspecified.
 }
   \item{phenoname}{
 Phenotype name in \code{trainphenofile}; NULL (default) means unspecified but users should provide if \code{trainphenofile} is provided.
@@ -146,7 +146,8 @@ n.snp = 80000
 
 
 #> head(read.table(paste0(testbed,".fam")))
-# test sample .fam file (quantitative phenotype in the 6th column but missing (i.e. "-9") allowed)
+# test sample .fam file
+# (quantitative phenotype in the 6th column but missing (i.e. "-9") allowed)
 #     V1    V2 V3 V4 V5    V6
 #1 id1_0 id2_0  0  0  1 -0.59
 #2 id1_1 id2_1  0  0  1  1.11
@@ -157,9 +158,11 @@ n.snp = 80000
 
 
 
-pSum = read.table(paste0(wd,"/pSum.txt")); rownames(pSum) = pSum[,2]; pSum = pSum[,7:8,drop=F]
+pSum = read.table(paste0(wd,"/pSum.txt"));
+rownames(pSum) = pSum[,2]; pSum = pSum[,7:8,drop=F]
 
-# summary p-values format ("rownames(pSum)" for SNP ID should be provided; "NA" means unavailable)
+# summary p-values format
+# ("rownames(pSum)" for SNP ID should be provided; "NA" means unavailable)
 #> head(pSum,15)  # summary p-values from two studies
 #                   V7        V8
 #rs12255619         NA        NA
@@ -189,12 +192,15 @@ sp2 = stmgplink(trainbed=trainbed,testbed=testbed,maxal=5000/n.snp)
 head(sp2$PEte)
 head(sp2$nonzero)
 
-# model building from training data to predict test data without covariates (using 1 pSum)
-sp2p = stmgplink(trainbed=trainbed,testbed=testbed,maxal=5000/n.snp,pSum=pSum[,1,drop=F])
+# model building from training data to predict test data without covariates
+# (using 1 pSum)
+sp2p = stmgplink(trainbed=trainbed,testbed=testbed,maxal=5000/n.snp,
+	pSum=pSum[,1,drop=F])
 head(sp2p$PEte)
 head(sp2p$nonzero)
 
-# model building from training data to predict test data without covariates (using 2 pSum)
+# model building from training data to predict test data without covariates
+# (using 2 pSum)
 sp2pp = stmgplink(trainbed=trainbed,testbed=testbed,maxal=5000/n.snp,pSum=pSum)
 head(sp2pp$PEte)
 head(sp2pp$nonzero)
@@ -320,13 +326,16 @@ sp2b = stmgplink(trainbed=paste0(trainbed,c(".bed",".bim","b.fam")),
 head(sp2b$PEte)
 head(sp2b$nonzero)
 
-# model building from training data to predict test data without covariates (using 1 pSum)
+# model building from training data to predict test data without covariates
+# (using 1 pSum)
 sp2bp = stmgplink(trainbed=paste0(trainbed,c(".bed",".bim","b.fam")),
-        testbed=paste0(testbed,c(".bed",".bim","b.fam")),maxal=5000/n.snp,pSum=pSum[,1,drop=F])
+        testbed=paste0(testbed,c(".bed",".bim","b.fam")),maxal=5000/n.snp,
+	pSum=pSum[,1,drop=F])
 head(sp2bp$PEte)
 head(sp2bp$nonzero)
 
-# model building from training data to predict test data without covariates (using 2 pSum)
+# model building from training data to predict test data without covariates
+# (using 2 pSum)
 sp2bpp = stmgplink(trainbed=paste0(trainbed,c(".bed",".bim","b.fam")),
          testbed=paste0(testbed,c(".bed",".bim","b.fam")),maxal=5000/n.snp,pSum=pSum)
 head(sp2bpp$PEte)

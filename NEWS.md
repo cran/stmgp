@@ -9,3 +9,7 @@
 
 # 1.0.2 (2019-09-25)
 * Bug fix. (Summary p-values weight computation in pSum option)
+
+# 1.0.3 (2020-01-10)
+* Bug fix. (error when number of covariates is 1; error when specifying trainphenofile and phenoname options)
+

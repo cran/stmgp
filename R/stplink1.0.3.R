@@ -47,6 +47,8 @@ stmgplink = function(trainbed,testbed=NULL,gamma=1,taun=NULL,lambda=1,Z=NULL,Zte
      Phen = read.table(trainphenofile,header=TRUE,na.strings="-9"); rownames(Phen) = as.character(paste(Phen[,1],Phen[,2]))
      cat(paste0("Reading phenotype ",phenoname," from ",trainphenofile,"\n"))
      FAM[,6] = NA; iii = intersect(rownames(FAM),rownames(Phen)); FAM[iii,6] = Phen[iii,phenoname]
+     trainbed[3] = paste0(trainfout,".tmp.fam")  #.
+     write.table(FAM,trainbed[3],row.names=FALSE,col.names=FALSE,quote=FALSE)  #.
   }
 
 
@@ -55,7 +57,8 @@ stmgplink = function(trainbed,testbed=NULL,gamma=1,taun=NULL,lambda=1,Z=NULL,Zte
       Z = read.table(Z,header=TRUE,na.strings="-9"); rownames(Z) = as.character(paste(Z[,1],Z[,2])); Z = as.matrix(Z[,-(1:2),drop=FALSE]);
       if(!is.null(Znames)){
          cat( paste0( "Used covariates: ",paste(intersect(colnames(Z),Znames),collapse=","),"\n" ) )
-         Z = Z[,intersect(colnames(Z),Znames)]
+         #Z = Z[,intersect(colnames(Z),Znames)]
+         Z = Z[,intersect(colnames(Z),Znames),drop=FALSE]  #.
       }
     }
     stopifnot(nrow(Z)==nrow(FAM))
@@ -98,7 +101,7 @@ stmgplink = function(trainbed,testbed=NULL,gamma=1,taun=NULL,lambda=1,Z=NULL,Zte
       system(paste(plink,"  --bed ",trainbed[1]," --bim ",trainbed[2]," --fam ",trainbed[3]," --extract ",fout,".",qua,"assoc --freq --allow-no-sex --out ",fout," --keep ",fout,".keep.fam",sep=""))
 
     }else{
-      write.table(cbind(FAM[,1:2],Z[as.character(paste(FAM[,1],FAM[,2])),]),file=paste(fout,".cov",sep=""),row.names=F,col.names=F,quote=F)
+      write.table(cbind(FAM[,1:2],Z[as.character(paste(FAM[,1],FAM[,2])),]),file=paste(fout,".cov",sep=""),row.names=FALSE,col.names=TRUE,quote=FALSE)
       if(qua==""){
         system(paste(plink," --allow-no-sex  --bed ",trainbed[1]," --bim ",trainbed[2]," --fam ",trainbed[3]," --logistic --covar ",fout,".cov --hide-covar --pfilter ",maxal," --maf ",maf," --hwe ",hwe," --geno ",geno," --out ",fout," --keep ",fout,".keep.fam",sep=""))
         system(paste(plink," --recodeA --bed ",trainbed[1]," --bim ",trainbed[2]," --fam ",trainbed[3]," --extract ",fout,".assoc.logistic --out ",fout," --keep ",fout,".keep.fam",sep=""))
@@ -128,7 +131,7 @@ stmgplink = function(trainbed,testbed=NULL,gamma=1,taun=NULL,lambda=1,Z=NULL,Zte
       system(paste(plink," --bed ",trainbed[1]," --bim ",trainbed[2]," --fam ",trainbed[3]," --extract ",fout,".",qua,"assoc --freq --allow-no-sex --out ",fout," --keep ",fout,".keep.fam",sep=""))
 
     }else{
-      write.table(cbind(FAM[,1:2],Z[as.character(paste(FAM[,1],FAM[,2])),]),file=paste(fout,".cov",sep=""),row.names=FALSE,col.names=FALSE,quote=FALSE)
+      write.table(cbind(FAM[,1:2],Z[as.character(paste(FAM[,1],FAM[,2])),]),file=paste(fout,".cov",sep=""),row.names=FALSE,col.names=TRUE,quote=FALSE)
       if(qua==""){
         system(paste(plink," --allow-no-sex --bed ",trainbed[1]," --bim ",trainbed[2]," --fam ",trainbed[3]," --logistic --covar ",fout,".cov --hide-covar --maf ",maf," --hwe ",hwe," --geno ",geno," --out ",fout," --keep ",fout,".keep.fam",sep=""))
      write.table(read.assoc.ch(fi=paste0(fout,".assoc.logistic"),maxal=maxal,pSum=pSum),file=paste0(fout,".assoc.logistic"),row.names=FALSE,col.names=TRUE,quote=FALSE)  #
@@ -228,10 +231,11 @@ stmgplink = function(trainbed,testbed=NULL,gamma=1,taun=NULL,lambda=1,Z=NULL,Zte
     # Estimated predicted values at optimal al for test data
     if(!is.null(Zte)){  # Covariates
       if(is.character(Zte)){  # plink .cov format
-        Zte = read.table(Zte,header=TRUE,na.strings="-9"); rownames(Zte) = as.character(paste(Zte[,1],Zte[,2])); Zte = as.matrix(Zte[,-(1:2)]);
+        Zte = read.table(Zte,header=TRUE,na.strings="-9"); rownames(Zte) = as.character(paste(Zte[,1],Zte[,2])); Zte = as.matrix(Zte[,-(1:2),drop=FALSE]); #
         if(!is.null(Znames)){
            cat( paste0( "Used covariates: ",paste(intersect(colnames(Zte),Znames),collapse=","),"\n" ) )
-           Zte = Zte[,intersect(colnames(Zte),Znames)]
+           #Zte = Zte[,intersect(colnames(Zte),Znames)]
+           Zte = Zte[,intersect(colnames(Zte),Znames),drop=FALSE] #.
         }
       }
       stopifnot(nrow(Zte)==nrow(FAMte))
@@ -241,9 +245,9 @@ stmgplink = function(trainbed,testbed=NULL,gamma=1,taun=NULL,lambda=1,Z=NULL,Zte
       }
 
       if(!allZero){
-        mustpte = cbind(Zte[rownames(FAMte),],XGte)%*%ST$BA[-1,lopt[1],lopt[2]] + outer(rep(1,nrow(XGte)),ST$BA[1,lopt[1],lopt[2]])
+        mustpte = cbind(Zte[rownames(FAMte),,drop=FALSE],XGte)%*%ST$BA[-1,lopt[1],lopt[2]] + outer(rep(1,nrow(XGte)),ST$BA[1,lopt[1],lopt[2]])
       }else{
-        mustpte = Zte[rownames(FAMte),]%*%ST$BA[1+(1:ncol(Zte)),lopt[1],lopt[2]] + outer(rep(1,nrow(Zte)),ST$BA[1,lopt[1],lopt[2]])
+        mustpte = Zte[rownames(FAMte),,drop=FALSE]%*%ST$BA[1+(1:ncol(Zte)),lopt[1],lopt[2]] + outer(rep(1,nrow(Zte)),ST$BA[1,lopt[1],lopt[2]])
       }
 
     }else{  # No covariates
