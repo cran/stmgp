@@ -1,4 +1,5 @@
 exportPattern("^[[:alpha:]]+")
  importFrom("stats", "cor", "dnorm", "glm", "lm", "pnorm", "qchisq", "qf", "complete.cases", "pchisq")
  importFrom("utils", "read.table", "tail", "write.table")
+ importFrom("stats", "binomial", "fitted", "hatvalues")
 import(MASS)

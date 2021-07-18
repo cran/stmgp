@@ -1,9 +1,9 @@
-09f186fe643fc66c50fdbb3a6635d163 *DESCRIPTION
-c97d36d8cfcba6cf0ff62e1026fdf754 *NAMESPACE
-1ecc7bbb6283a496a93cb613bd562555 *NEWS.md
-f888fcd8fc67065bacb515ec484bc8c2 *R/stplink1.0.3.R
+b74b5cf68e0f8cf9ecdd989b9c2d5609 *DESCRIPTION
+5e4cefe4bc544a9d41f6e16addfaaa03 *NAMESPACE
+63e7c9adcc732accca7ce61a9c3042a5 *NEWS.md
+61ca46ddd13576acb8cbe4b4f5675bd8 *R/stplink1.0.4.R
 274953e39bbc9568aedbdbb15e54dd29 *README.md
-cc6c335d9a068688d79414b125724af7 *build/partial.rdb
+09e88b6fc202de8cb888ccc2f1c50833 *build/partial.rdb
 85839612966e01e2e28193b4bc1ef9c3 *inst/extdata/causal.txt
 72c317f030399ac14d682101193435d5 *inst/extdata/pSum.txt
 1d85798fe8855f89bcd1d2ade8a220e7 *inst/extdata/snps.raw.zip
@@ -22,6 +22,7 @@ d2b7dd3284c9dd7a3805888f753e6f61 *inst/extdata/train.bim
 511d63a3914767e2b94641bdbe781cc9 *inst/extdata/train.phen
 fd71ed57df1b60cecba018f32f7445cf *inst/extdata/train.raw
 7eeb851aef14772b7f0fa5cc627fc201 *inst/extdata/trainb.fam
+cc9e6f2f494972a5aa41d0b6bc09dc6e *man/stmgeplink.Rd
 b1e71b6f5331c74a205304e449127054 *man/stmgp-package.Rd
 d8d2b7c93a56794b873d50d49b8251bb *man/stmgp.Rd
-9cadbe05a2b5359e9d22b84cb76754cb *man/stmgplink.Rd
+da1c752656f9a0432f0714b9cc82c63e *man/stmgplink.Rd

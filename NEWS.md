@@ -13,3 +13,5 @@
 # 1.0.3 (2020-01-10)
 * Bug fix. (error when number of covariates is 1; error when specifying trainphenofile and phenoname options)
 
+# 1.0.4 (2021-07-18)
+* Added functionality. (Prediction incorporating GxE interaction)
