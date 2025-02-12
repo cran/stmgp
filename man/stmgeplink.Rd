@@ -131,11 +131,13 @@ See Ueki and Tamiya (2016).
 }
 \references{
 
-Purcell S, Neale B, Todd-Brown K, Thomas L, Ferreira M, Bender D, Maller J, Sklar P, de Bakker P, Daly MJ, Sham PC. (2007) PLINK: A tool set for whole-genome and population-based linkage analyses. Am J Hum Genet 81:559-75.
+Purcell S, Neale B, Todd-Brown K, Thomas L, Ferreira M, Bender D, Maller J, Sklar P, de Bakker P, Daly MJ, Sham PC (2007) PLINK: A tool set for whole-genome and population-based linkage analyses. Am J Hum Genet 81:559-75.
 
-Chang CC, Chow CC, Tellier LCAM, Vattikuti S, Purcell SM, Lee JJ. (2015) Second-generation PLINK: rising to the challenge of larger and richer datasets. GigaScience 4.
+Chang CC, Chow CC, Tellier LCAM, Vattikuti S, Purcell SM, Lee JJ (2015) Second-generation PLINK: rising to the challenge of larger and richer datasets. GigaScience 4.
 
 Ueki M, Fujii M, Tamiya G. (2019) Quick assessment for systematic test statistic inflation/deflation due to null model misspecifications in genome-wide environment interaction studies. PLoS ONE 14: e0219825.
+
+Ueki M, Tamiya G, for Alzheimer's Disease Neuroimaging Initiative (2021) mooth-threshold multivariate genetic prediction incorporating gene-nvironment interactions. G3 Genes|Genomes|Genetics 11:jkab278. <https://doi.org/10.1093/g3journal/jkab278>
 
 }
 \examples{

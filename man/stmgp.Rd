@@ -56,10 +56,10 @@ User-specified p-values matrix from other studies that are independent of the st
 See Ueki and Tamiya (2016).
 }
 \references{
-Ye J. (1988) On measuring and correcting the effects of data mining and
+Ye J (1988) On measuring and correcting the effects of data mining and
 model selection. J Am Stat Assoc 93:120-31.
 
-Ueki M. (2009) A note on automatic variable selection using smooth-threshold estimating equations. Biometrika 96:1005-11.
+Ueki M (2009) A note on automatic variable selection using smooth-threshold estimating equations. Biometrika 96:1005-11.
 }
 \value{
   \item{Muhat}{Estimated phenotypic values from linear model evaluated at each candidate tuning parameters (\code{al} and \code{tau}) whose size is of (sample size) x (length of \code{al}) x (length of \code{tau}).}

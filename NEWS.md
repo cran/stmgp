@@ -15,3 +15,6 @@
 
 # 1.0.4 (2021-07-18)
 * Added functionality. (Prediction incorporating GxE interaction)
+
+# 1.0.4.1 (2025-02-11)
+* Added functionality. (lapprox for GxE interaction)

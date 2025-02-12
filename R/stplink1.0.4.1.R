@@ -200,6 +200,7 @@ stmgplink = function(trainbed,testbed=NULL,gamma=1,taun=NULL,lambda=1,Z=NULL,Zte
     ncX0 = scan(paste(trainfout,".raw",sep=""),"character",nlines=1)
     XG0 = t(matrix(scan(paste(trainfout,".raw",sep=""),"character"),nrow=length(ncX0))[,-1]); XG0[which(XG0[,6]=="-9"),6] = NA; rownames(XG0) = paste(XG0[,1],XG0[,2]); XG0 = XG0[rownames(FAM),,drop=FALSE];
     XG = (XG0[,-(1:6),drop=FALSE]=="1") + 2*(XG0[,-(1:6),drop=FALSE]=="2")
+    meanXG = colMeans(XG,na.rm=T) #
     XG = apply(XG,2, function(x)ifelse(is.na(x), mean(x, na.rm=TRUE), x))
   }
 
@@ -237,7 +238,8 @@ stmgplink = function(trainbed,testbed=NULL,gamma=1,taun=NULL,lambda=1,Z=NULL,Zte
       ncX0 = scan(paste(testfout,".raw",sep=""),"character",nlines=1)
       XG0te = t(matrix(scan(paste(testfout,".raw",sep=""),"character"),nrow=length(ncX0))[,-1]); XG0te[which(XG0te[,6]=="-9"),6] = NA; rownames(XG0te) = paste(XG0te[,1],XG0te[,2]); XG0te = XG0te[rownames(FAMte),,drop=FALSE]
       XGte = (XG0te[,-(1:6),drop=FALSE]=="1") + 2*(XG0te[,-(1:6),drop=FALSE]=="2")
-      XGte = apply(XGte,2, function(x)ifelse(is.na(x), mean(x, na.rm=TRUE), x)); #print(dim(XG0te))
+      #XGte = apply(XGte,2, function(x)ifelse(is.na(x), mean(x, na.rm=TRUE), x));
+      for(jk in 1:ncol(XGte)) XGte[which(is.na(XGte[,jk])),jk] = meanXG[jk]  #
     }
 
     # Estimated predicted values at optimal al for test data
@@ -565,12 +567,25 @@ return(list(Loss=Loss[-1,,drop=FALSE],Muhat=Muhat[,-1,,drop=FALSE],gdf=gdf[-1,,d
 .check.lapprox.ge = function(Z,X,y){
 	ii = complete.cases(cbind(Z,X,y));
 	Y = y[ii]; Z = cbind(1,Z[ii,,drop=FALSE]); X = X[ii,,drop=FALSE]  # include intercept
-	cat("Z must include E\n")
 	kkk = ifelse(length(table(Y))==2,.tapproxb(Z,X,Y),.tapproxq(Z,X,Y))/ncol(X)
-	cat(paste("lapprox is",kkk,", if it is far from 1 null model can be missepcified\n"))
+	cat(paste("lapprox is",kkk,", if it is far from 1 null model can be misspecified\n"))
 	return(kkk)
 }
 
+
+lapprox = function(Z,X,y){
+	ii = complete.cases(cbind(Z,X,y));
+	Y = y[ii]; Z = cbind(1,Z[ii,,drop=FALSE]); X = X[ii,,drop=FALSE]  # include intercept
+	if(length(table(Y))==2){
+		cat("binary phenotype\n")
+		kkk = .tapproxb(Z,X,Y)/ncol(X)
+	}else{
+		cat("quantitative phenotype\n")
+		kkk = .tapproxq(Z,X,Y)/ncol(X)
+	}
+	cat(paste("lapprox is",kkk,", if it is far from 1 null model can be misspecified\n"))
+	return(kkk)
+}
 
 
 .divplink.train.test = function(itrain,itest,bed,fout,di=".",covfile=NULL,phenfile=NULL,plink="plink1.9"){
