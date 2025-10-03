@@ -18,3 +18,6 @@
 
 # 1.0.4.1 (2025-02-11)
 * Added functionality. (lapprox for GxE interaction)
+
+# 1.0.4.2 (2025-10-03)
+* Added functionality. (dabic for model selection of K-means)

@@ -906,6 +906,56 @@ stmgeplink = function(trainbed,Z,Enames,Zte=NULL,testbed=NULL,gamma=1,taun=NULL,
 
 
 
+##########################################################################################
+
+
+
+dabic = function(x,cluster){
+	stopifnot(length(cluster)==nrow(x))
+	stopifnot(!any(is.na(x)))
+	stopifnot(is.matrix(x))
+	
+	p = ncol(x)
+	n = nrow(x)
+	pen = 2*p*log(n)
+
+	mupe = function(p,df) exp(pchisq(qchisq(p,df=df),df=df+2,log.p=TRUE) - log(p))*df
+
+	lvup = log(diag(var(x)*(n-1)/n))
+	nlik = 0.5*n*sum(lvup)
+	bic = bica = nlik + 0.5*( pen )
+
+	nn = table(cluster)
+	kk = length(nn)
+	if(kk>1){
+		pr = nn/n
+		mp = pr
+		for(j in 1:length(mp)) mp[j] = mupe(pr[j],df=1)
+		msq = msqc = numeric(length(pr))
+		for(jj in 1:kk){
+			if(nn[jj]==1){
+				msq[jj] = sum(lvup)
+				msqc[jj] = sum(lvup)
+			}else{
+				msqjj = log(diag(var(x[cluster==jj,,drop=FALSE])*(nn[jj]-1)/nn[jj]))
+				msqjjc = msqjj - log(mp[jj])
+				if(any(msqjjc>lvup)) msqjjc[msqjjc>lvup] = lvup[msqjjc>lvup]
+				msq[jj] = sum(msqjj)
+				msqc[jj] = sum(msqjjc)
+			}
+		}
+		nLik = 0.5*( sum(msq*pr)*n )
+		Bic = nLik + 0.5*( pen*kk )
+		Bica = 0.5*( sum(msqc*pr)*n + pen*kk )
+	}else{
+		nLik = nlik
+		Bic = bic
+		Bica = bica
+	}
+
+	return( list(nlik=nLik,bic=Bic,bica=Bica) )
+}
+
 
 
 
